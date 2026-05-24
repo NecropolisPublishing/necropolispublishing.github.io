@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Necropolis Publishing — Tools and stories for writers haunted by their own work.</title>
+<meta name="description" content="Necropolis Publishing makes Lectern, a distraction-free writing app for serious storytellers. We also publish original fiction.">
+<meta property="og:title" content="Necropolis Publishing">
+<meta property="og:description" content="Tools and stories for writers haunted by their own work.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://necropolispublishing.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Eagle+Lake&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1010;
+    --bg-card: #181819;
+    --bg-elevated: #1f1f20;
+    --ink: #d8d6cf;
+    --ink-dim: #8a8780;
+    --ink-faint: #5a5750;
+    --accent: #b08a4a;
+    --accent-soft: rgba(176, 138, 74, 0.15);
+    --border: rgba(255, 255, 255, 0.08);
+    --shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    --serif: 'Cormorant Garamond', 'Palatino Linotype', Palatino, Georgia, serif;
+    --display: 'Eagle Lake', 'Palatino Linotype', Palatino, Georgia, serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(176, 138, 74, 0.05), transparent 60%),
+      var(--bg);
+    min-height: 100vh;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  a:hover { border-bottom-color: var(--accent); }
+
+  /* ============ Header / Nav ============ */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+    background: rgba(15, 16, 16, 0.85);
+    border-bottom: 1px solid var(--border);
+  }
+  nav {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+  .brand {
+    font-family: var(--display);
+    font-size: 18px;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    border: none;
+  }
+  .brand:hover { border: none; color: var(--accent); }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-links a {
+    color: var(--ink-dim);
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border: none;
+  }
+  .nav-links a:hover { color: var(--accent); border: none; }
+
+  /* ============ Hero ============ */
+  .hero {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 120px 32px 80px;
+    text-align: center;
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 400;
+    margin: 0 0 24px;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  .hero .tagline {
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-style: italic;
+    color: var(--ink-dim);
+    margin: 0 0 40px;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    margin: 0 auto 40px;
+    opacity: 0.6;
+  }
+
+  /* ============ Sections ============ */
+  section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 32px;
+  }
+  section h2 {
+    font-family: var(--display);
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 400;
+    text-align: center;
+    margin: 0 0 8px;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .section-eyebrow {
+    text-align: center;
+    color: var(--accent);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 0 0 8px;
+  }
+  .section-lede {
+    text-align: center;
+    color: var(--ink-dim);
+    font-style: italic;
+    font-size: 18px;
+    max-width: 600px;
+    margin: 0 auto 56px;
+  }
+
+  /* ============ Lectern showcase ============ */
+  .lectern-card {
+    background: linear-gradient(180deg, var(--bg-card), var(--bg-elevated));
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 48px;
+    box-shadow: var(--shadow);
+  }
+  .lectern-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  @media (max-width: 720px) {
+    .lectern-card-grid { grid-template-columns: 1fr; gap: 32px; }
+    .lectern-card { padding: 32px 24px; }
+  }
+  .lectern-mark {
+    text-align: center;
+    padding: 32px;
+  }
+  .lectern-mark svg {
+    width: 160px;
+    height: 160px;
+    opacity: 0.75;
+  }
+  .lectern-name {
+    font-family: var(--display);
+    font-size: 42px;
+    color: var(--ink);
+    margin: 16px 0 4px;
+  }
+  .lectern-tagline {
+    font-style: italic;
+    color: var(--ink-dim);
+    margin: 0;
+  }
+  .lectern-copy h3 {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ink);
+    margin: 0 0 12px;
+  }
+  .lectern-copy p {
+    margin: 0 0 16px;
+    color: var(--ink);
+  }
+  .feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+  }
+  .feature-list li {
+    padding: 6px 0;
+    color: var(--ink-dim);
+    font-size: 16px;
+    position: relative;
+    padding-left: 20px;
+  }
+  .feature-list li::before {
+    content: '·';
+    position: absolute;
+    left: 4px;
+    color: var(--accent);
+    font-size: 24px;
+    line-height: 1;
+    top: 4px;
+  }
+  .cta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-family: var(--serif);
+    font-size: 16px;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .btn:hover {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+  }
+  .btn.primary {
+    background: var(--accent);
+    color: var(--bg);
+    border: 1px solid var(--accent);
+  }
+  .btn.primary:hover {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+  .coming-soon {
+    display: inline-block;
+    padding: 3px 10px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    margin-bottom: 12px;
+  }
+
+  /* ============ Books section + gate ============ */
+  #books {
+    background:
+      linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.3), transparent);
+    margin: 40px 0;
+  }
+  .gate {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 48px 32px;
+  }
+  .gate h3 {
+    font-family: var(--display);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--ink);
+    margin: 0 0 16px;
+  }
+  .gate p {
+    color: var(--ink-dim);
+    margin: 0 0 24px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .gate-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .book-catalog {
+    display: none;
+  }
+  .book-catalog.unlocked { display: block; }
+  .book-empty {
+    text-align: center;
+    padding: 64px 32px;
+    color: var(--ink-faint);
+    font-style: italic;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+  }
+
+  /* ============ About ============ */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .about-grid p {
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1.8;
+    margin: 0 0 16px;
+    text-align: center;
+  }
+  .about-grid p:last-of-type { color: var(--ink-dim); font-style: italic; }
+
+  /* ============ Contact ============ */
+  .contact-card {
+    max-width: 480px;
+    margin: 0 auto;
+    text-align: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 40px 32px;
+  }
+  .contact-card a {
+    font-size: 20px;
+    color: var(--accent);
+    border: none;
+  }
+  .contact-card a:hover { border-bottom: 1px solid var(--accent); }
+  .contact-card p {
+    color: var(--ink-dim);
+    margin: 0 0 16px;
+  }
+
+  /* ============ Footer ============ */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px;
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: 13px;
+    margin-top: 80px;
+  }
+  footer p { margin: 4px 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#" class="brand">Necropolis Publishing</a>
+    <ul class="nav-links">
+      <li><a href="#lectern">Lectern</a></li>
+      <li><a href="#books">Fiction</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>Necropolis Publishing</h1>
+  <div class="hero-divider"></div>
+  <p class="tagline">
+    Tools and stories for writers haunted by their own work.
+  </p>
+</div>
+
+<section id="lectern">
+  <p class="section-eyebrow">Our Software</p>
+  <h2>Lectern</h2>
+  <p class="section-lede">A distraction-free writing app for serious storytellers.</p>
+
+  <div class="lectern-card">
+    <div class="lectern-card-grid">
+      <div class="lectern-mark">
+        <svg
+          viewBox="0 0 200 200"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="Lectern mark"
+          fill="none"
+          stroke="#b08a4a"
+          stroke-width="6"
+          stroke-linejoin="round"
+          stroke-linecap="round"
+        >
+          <!-- open book -->
+          <path d="M100 36 C82 28, 58 26, 38 32 L38 96 C58 90, 82 92, 100 100 C118 92, 142 90, 162 96 L162 32 C142 26, 118 28, 100 36 Z" />
+          <!-- book spine -->
+          <path d="M100 44 L100 100" />
+          <!-- lectern top slab -->
+          <path d="M30 104 L170 104 L162 124 L38 124 Z" />
+          <!-- pedestal column -->
+          <path d="M88 124 C90 144, 84 164, 74 176 L126 176 C116 164, 110 144, 112 124" />
+          <!-- base -->
+          <rect x="58" y="176" width="84" height="14" rx="7" />
+        </svg>
+        <div class="lectern-name">Lectern</div>
+        <p class="lectern-tagline">A quiet room for words.</p>
+      </div>
+
+      <div class="lectern-copy">
+        <h3>Built for writers who finish.</h3>
+        <p>
+          Lectern is a long-form writing environment shaped around the way
+          books actually get made — paragraph by paragraph, scene by scene,
+          without ribbons of toolbars or tabs of distraction.
+        </p>
+        <ul class="feature-list">
+          <li>Markdown-clean, exports straight to Word</li>
+          <li>Built-in compendium for characters, places, and lore</li>
+          <li>Optional AI assistance (bring your own API key)</li>
+          <li>Tranquility mode — full-screen, no chrome</li>
+          <li>Your files stay yours. No cloud lock-in. Ever.</li>
+        </ul>
+        <div class="cta-row">
+          <span class="coming-soon">Coming Soon</span>
+        </div>
+        <p style="margin-top: 16px; color: var(--ink-dim); font-style: italic; font-size: 15px;">
+          Public release coming soon. Tutorials and a preview build are
+          already in the works.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="books">
+  <p class="section-eyebrow">Our Fiction</p>
+  <h2>Original Stories</h2>
+  <p class="section-lede">Dark romance, gothic suspense, and stories that don't flinch.</p>
+
+  <div id="gate" class="gate">
+    <h3>Adult Reading Room</h3>
+    <p>
+      The fiction below is written for readers aged 18 and over. Contains
+      mature themes including explicit romance, violence, and adult
+      situations. Please confirm you're old enough to continue.
+    </p>
+    <div class="gate-actions">
+      <button class="btn primary" onclick="unlockBooks()">I am 18 or older</button>
+      <a class="btn" href="#lectern">Take me back</a>
+    </div>
+  </div>
+
+  <div id="book-catalog" class="book-catalog">
+    <div class="book-empty">
+      Our first releases are in production. Check back soon — or
+      <a href="#contact">drop us a note</a> to be the first to know when
+      they're available.
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <p class="section-eyebrow">Who We Are</p>
+  <h2>About Necropolis</h2>
+  <div class="about-grid">
+    <p>
+      Necropolis Publishing is a small, independent house with two
+      mandates: build the tools we wish we had as writers, and publish the
+      kind of stories we wish we'd grown up reading.
+    </p>
+    <p>
+      Lectern is our flagship piece of software — a long-form writing app
+      shaped by years of trying to write inside word processors that were
+      never built for it. Our fiction line will follow in the same spirit:
+      careful craft, no apology, no compromise.
+    </p>
+    <p>
+      Quiet rooms, sharp tools, honest work.
+    </p>
+  </div>
+</section>
+
+<section id="contact">
+  <p class="section-eyebrow">Get In Touch</p>
+  <h2>Contact</h2>
+  <div class="contact-card">
+    <p>Questions, partnerships, beta access, press inquiries —</p>
+    <a href="mailto:necropolispublishing@gmail.com">necropolispublishing@gmail.com</a>
+    <p style="margin-top: 24px;">
+      Or support our work directly on
+      <a href="https://buymeacoffee.com/necropolis" target="_blank" rel="noopener" style="border-bottom: 1px solid var(--accent);">Buy Me a Coffee</a>.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Necropolis Publishing, LLC. All rights reserved.</p>
+  <p style="font-style: italic;">Quiet rooms, sharp tools, honest work.</p>
+</footer>
+
+<script>
+  // Soft 18+ gate for the Fiction section. Choice is remembered for the
+  // browsing session only (sessionStorage), so closing the tab re-prompts.
+  function unlockBooks() {
+    try { sessionStorage.setItem('np_books_gate', 'unlocked'); } catch (e) {}
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('book-catalog').classList.add('unlocked');
+  }
+  // Restore unlocked state on page reload during the same session.
+  try {
+    if (sessionStorage.getItem('np_books_gate') === 'unlocked') {
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('book-catalog').classList.add('unlocked');
+    }
+  } catch (e) {}
+
+  // Smooth-scroll for anchor links.
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href').slice(1);
+      if (!id) return;
+      const target = document.getElementById(id);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
