@@ -1,0 +1,231 @@
+/* ============================================================
+   Lectern — Necropolis Publishing
+   Shared stylesheet  ·  Gold Elegance
+   Eagle Lake (display) + Palatino (body)
+   ============================================================ */
+
+:root {
+  --bg: #0f1010;
+  --bg-hero: #1a1a1b;
+  --bg-card: #181819;
+  --bg-elevated: #1f1f20;
+  --ink: #e4e2db;
+  --ink-soft: #c9c7c0;
+  --ink-dim: #95938b;
+  --ink-faint: #6a6862;
+  --hero-gray: #6a6a6a;
+  --accent: #b08a4a;
+  --accent-bright: #c9a05d;
+  --accent-soft: rgba(176, 138, 74, 0.14);
+  --border: rgba(255, 255, 255, 0.09);
+  --shadow: 0 14px 44px rgba(0, 0, 0, 0.5);
+  --body: 'Palatino Linotype', Palatino, 'URW Palladio L', 'Noto Serif', Georgia, serif;
+  --display: 'Eagle Lake', 'Palatino Linotype', Palatino, Georgia, serif;
+  --maxw: 1080px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body { min-height: 100vh; }
+
+a { color: var(--accent-bright); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color .2s, color .2s; }
+a:hover { border-bottom-color: var(--accent); }
+
+/* ============ Header / Nav ============ */
+header {
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(14px);
+  background: rgba(15, 16, 16, 0.82);
+  border-bottom: 1px solid var(--border);
+}
+nav {
+  max-width: var(--maxw); margin: 0 auto;
+  padding: 14px 34px;
+  display: flex; justify-content: space-between; align-items: center; gap: 24px;
+}
+.brand { display: flex; align-items: center; gap: 10px; border: none; }
+.brand:hover { border: none; }
+.brand-icon { width: 28px; height: 28px; display: block; }
+.brand-word { font-family: var(--display); font-size: 21px; letter-spacing: .04em; color: var(--ink); line-height: 1; transition: color .2s; }
+.brand:hover .brand-word { color: var(--accent-bright); }
+.nav-links { display: flex; gap: 28px; align-items: center; list-style: none; margin: 0; padding: 0; }
+.nav-links a { color: var(--ink-soft); font-size: 15px; letter-spacing: .03em; border: none; }
+.nav-links a:hover { color: var(--accent-bright); border: none; }
+.nav-links a[aria-current="page"],
+.nav-links a[aria-current="page"]:hover { color: var(--accent-bright); border-bottom: 2px solid var(--accent); }
+@media (max-width: 600px) {
+  nav { padding: 12px 18px; gap: 12px; }
+  .nav-links { gap: 16px; }
+  .nav-links a { font-size: 14px; }
+}
+
+/* ============ Hero (home — matches app welcome screen) ============ */
+.hero {
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 20%, rgba(176, 138, 74, 0.06), transparent 62%),
+    var(--bg-hero);
+  border-bottom: 1px solid var(--border);
+  padding: 64px 32px 60px;
+  text-align: center;
+}
+.hero-inner { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+.hero-icon { width: 104px; height: 104px; margin-bottom: 6px; opacity: 0; animation: rise .9s ease .05s forwards; }
+.hero-title {
+  font-family: var(--display);
+  font-size: clamp(42px, 7vw, 68px);
+  font-weight: 400; letter-spacing: .02em; color: var(--hero-gray);
+  margin: 0; line-height: 1.1; opacity: 0; animation: rise .9s ease .18s forwards;
+}
+.hero-title .tm { font-family: var(--body); font-size: .26em; vertical-align: super; opacity: .6; margin-left: 4px; letter-spacing: 0; }
+.hero-tagline { font-style: italic; color: #7d7b74; font-size: clamp(17px, 2.2vw, 21px); margin: 14px 0 0; opacity: 0; animation: rise .9s ease .3s forwards; }
+.welcome-line {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: min(420px, 80%); margin: 30px auto 0; color: var(--accent);
+  user-select: none; pointer-events: none; opacity: 0; animation: rise .9s ease .42s forwards;
+}
+.welcome-line .leaf { font-size: 19px; line-height: 1; }
+.welcome-line .rule { flex: 1; height: 2px; background: var(--accent); opacity: .92; }
+@keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ============ Page heads (interior pages) ============ */
+.page-head { max-width: var(--maxw); margin: 0 auto; padding: 60px 34px 8px; text-align: center; }
+.eyebrow { color: var(--accent-bright); font-size: 13px; letter-spacing: .24em; text-transform: uppercase; margin: 0 0 12px; }
+.page-head h1 { font-family: var(--display); font-size: clamp(30px, 4.6vw, 46px); font-weight: 400; color: var(--ink); margin: 0; letter-spacing: .02em; line-height: 1.15; }
+.page-head .lede { color: var(--ink-dim); font-style: italic; font-size: clamp(17px, 2vw, 20px); max-width: 620px; margin: 18px auto 0; }
+
+/* ornamental section divider (leaf · line · leaf) — the brand mark */
+.ornament { display: flex; align-items: center; justify-content: center; gap: 16px; width: min(520px, 80%); margin: 48px auto; color: var(--accent); user-select: none; }
+.ornament .leaf { font-size: 18px; line-height: 1; opacity: .9; }
+.ornament .rule { flex: 1; height: 2px; background: var(--accent); opacity: .85; }
+
+/* ============ Sections ============ */
+section { max-width: var(--maxw); margin: 0 auto; padding: 52px 34px; }
+section h2 { font-family: var(--display); font-size: clamp(24px, 3.4vw, 34px); font-weight: 400; margin: 0 0 16px; color: var(--ink); letter-spacing: .02em; line-height: 1.2; }
+@media (max-width: 600px) { section { padding: 40px 20px; } .page-head { padding: 48px 20px 8px; } .hero { padding: 54px 20px 50px; } }
+
+/* ============ Home intro block ============ */
+.intro { max-width: 720px; text-align: center; margin: 0 auto; }
+.intro h2 { margin-bottom: 18px; }
+.intro p.body { color: var(--ink-soft); font-size: 17.5px; margin: 0 auto 30px; max-width: 660px; }
+.intro-card {
+  background: linear-gradient(180deg, var(--bg-card), var(--bg-elevated));
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 26px 30px 30px; max-width: 600px; margin: 0 auto; box-shadow: var(--shadow);
+}
+.bullets { list-style: none; padding: 0; margin: 0 0 24px; text-align: left; }
+.bullets li { position: relative; padding: 9px 0 9px 28px; color: var(--ink-soft); font-size: 16px; border-bottom: 1px solid var(--border); }
+.bullets li:last-child { border-bottom: none; }
+.bullets li::before { content: '\2767'; position: absolute; left: 2px; top: 10px; color: var(--accent); font-size: 15px; }
+.bullets li.more { font-style: italic; }
+.bullets li.more::before { content: '\2192'; }
+.pill { display: inline-block; padding: 7px 18px; background: var(--accent-soft); color: var(--accent-bright); font-size: 13px; letter-spacing: .16em; text-transform: uppercase; border-radius: 4px; border: 1px solid rgba(176,138,74,.3); }
+.note { color: var(--ink-dim); font-style: italic; font-size: 15.5px; margin: 22px auto 0; max-width: 600px; }
+
+/* ============ Buttons ============ */
+.btn { display: inline-block; padding: 12px 28px; font-family: var(--body); font-size: 16px; color: var(--ink); background: transparent; border: 1px solid var(--accent); border-radius: 5px; cursor: pointer; transition: background .2s, color .2s; text-decoration: none; letter-spacing: .02em; }
+.btn:hover { background: var(--accent-soft); border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--bg); }
+.btn.primary:hover { background: transparent; color: var(--accent-bright); }
+.btn.disabled, .btn[aria-disabled="true"] { opacity: .5; cursor: default; pointer-events: none; }
+.btn-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
+
+/* ============ Features page (compartmentalized) ============ */
+.tier-banner { text-align: center; margin: 8px auto 36px; }
+.tier-banner .ornament { margin: 18px auto 16px; width: min(300px, 64%); }
+.page-head .eyebrow { font-size: 16px; letter-spacing: .26em; margin-bottom: 24px; }
+.page-head h1 { font-size: clamp(34px, 5.2vw, 54px); }
+.page-head .lede { font-size: clamp(18px, 2.2vw, 22px); margin-top: 26px; }
+.tier-banner .t-name { font-family: var(--display); font-size: clamp(26px, 4vw, 38px); color: var(--ink); }
+.tier-banner .t-sub { color: var(--ink-dim); font-style: italic; font-size: 16.5px; max-width: 640px; margin: 10px auto 0; }
+.fgroup {
+  max-width: 960px; margin: 0 auto 22px;
+  background: linear-gradient(180deg, var(--bg-card), var(--bg-elevated));
+  border: 1px solid var(--border); border-radius: 10px; padding: 4px 30px 22px;
+}
+.group-eyebrow { color: var(--accent-bright); font-size: 15px; letter-spacing: .2em; text-transform: uppercase; margin: 26px 0 8px; text-align: center; }
+.fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 38px; }
+@media (max-width: 760px) { .fgrid { grid-template-columns: 1fr; } }
+.feature { padding: 16px 0; border-top: 1px solid var(--border); }
+.feature h3 { font-family: var(--display); font-size: 18px; font-weight: 400; color: var(--ink); margin: 0 0 6px; letter-spacing: .01em; }
+.feature p { color: var(--ink-dim); font-size: 16px; margin: 0; line-height: 1.6; }
+
+/* ============ Pricing ============ */
+.pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; max-width: 880px; margin: 0 auto; }
+@media (max-width: 760px) { .pricing-grid { grid-template-columns: 1fr; } }
+.price-card.span-full { grid-column: 1 / -1; }
+.price-card.span-full .price-features { columns: 2; column-gap: 38px; margin-bottom: 22px; }
+.price-card.span-full .btn { align-self: center; padding-left: 48px; padding-right: 48px; }
+@media (max-width: 620px) { .price-card.span-full .price-features { columns: 1; } }
+.price-card { background: linear-gradient(180deg, var(--bg-card), var(--bg-elevated)); border: 1px solid var(--border); border-radius: 10px; padding: 36px 30px; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+.price-card.featured { border-color: rgba(176, 138, 74, 0.5); }
+.price-tier { font-family: var(--display); font-size: 22px; color: var(--ink); margin: 0 0 4px; }
+.price-sub { color: var(--ink-dim); font-style: italic; font-size: 15.5px; margin: 0 0 22px; min-height: 22px; }
+.price-amount { font-family: var(--display); font-size: 40px; color: var(--accent-bright); line-height: 1; margin: 0 0 6px; }
+.price-note { color: var(--ink-faint); font-size: 13.5px; margin: 0 0 22px; min-height: 18px; line-height: 1.5; }
+.price-features { list-style: none; padding: 0; margin: 0 0 28px; flex: 1; }
+.price-features li { padding: 9px 0 9px 24px; color: var(--ink-soft); font-size: 15.5px; position: relative; border-bottom: 1px solid var(--border); line-height: 1.5; }
+.price-features li:last-child { border-bottom: none; }
+.price-features li::before { content: '\2767'; position: absolute; left: 2px; top: 10px; color: var(--accent); font-size: 14px; }
+.price-features li.heading { color: var(--ink); font-style: italic; border-bottom: none; padding-left: 0; }
+.price-features li.heading::before { content: none; }
+.byok-note { max-width: 720px; margin: 44px auto 0; text-align: center; color: var(--ink-faint); font-size: 14.5px; font-style: italic; line-height: 1.7; }
+
+/* ============ Download ============ */
+.dl-card { max-width: 580px; margin: 0 auto; text-align: center; background: linear-gradient(180deg, var(--bg-card), var(--bg-elevated)); border: 1px solid var(--border); border-radius: 10px; padding: 40px 32px; box-shadow: var(--shadow); }
+.dl-card .platform { font-family: var(--display); font-size: 23px; color: var(--ink); margin: 0 0 6px; }
+.dl-card p { color: var(--ink-dim); font-size: 16px; margin: 0 0 22px; }
+.roadmap { max-width: 580px; margin: 36px auto 0; padding: 0; }
+.roadmap li { color: var(--ink-dim); font-size: 16px; padding: 7px 0; list-style: none; }
+.roadmap li b { color: var(--ink); font-weight: 600; font-style: normal; }
+
+/* ============ About / Legend ============ */
+.legend { max-width: 700px; margin: 0 auto; }
+.legend p { color: var(--ink-soft); font-size: 17.5px; line-height: 1.8; margin: 0 0 22px; }
+.legend .closing { color: var(--ink-dim); font-style: italic; }
+.contact-line { text-align: center; color: var(--ink-dim); font-size: 16.5px; margin: 8px 0 0; }
+.contact-line a { font-size: 17px; }
+
+/* ============ Legal / prose pages ============ */
+.legal { max-width: 740px; margin: 0 auto; padding: 56px 34px 36px; }
+.legal h1 { font-family: var(--display); font-size: clamp(26px, 4vw, 38px); font-weight: 400; color: var(--ink); margin: 0 0 8px; letter-spacing: .02em; }
+.legal .updated { color: var(--ink-faint); font-size: 14px; font-style: italic; margin: 0 0 36px; }
+.legal h2 { font-family: var(--display); font-size: 20px; font-weight: 400; color: var(--ink); margin: 36px 0 12px; letter-spacing: .01em; }
+.legal p, .legal li { color: var(--ink-dim); font-size: 16.5px; line-height: 1.75; }
+.legal p { margin: 0 0 16px; }
+.legal ul { margin: 0 0 16px; padding-left: 22px; }
+.legal li { margin: 0 0 9px; }
+.legal strong { color: var(--ink); font-weight: 600; }
+
+/* ============ Footer ============ */
+footer { border-top: 1px solid var(--border); padding: 40px 34px; text-align: center; color: var(--ink-faint); font-size: 13.5px; margin-top: 72px; }
+footer p { margin: 5px 0; }
+.footer-links { display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; list-style: none; padding: 0; margin: 0 0 20px; }
+.footer-links a { color: var(--ink-dim); font-size: 13px; letter-spacing: .04em; text-transform: uppercase; border: none; }
+.footer-links a:hover { color: var(--accent-bright); border: none; }
+
+/* ============================================================
+   Necropolis Publishing — home additions
+   (layered over the shared Gold Elegance core above)
+   ============================================================ */
+nav { flex-wrap: wrap; row-gap: 8px; }
+.brand-leaf { color: var(--accent); font-size: 20px; line-height: 1; }
+.brand-word { font-size: 18px; }               /* full press name runs long */
+.hero-title { color: var(--ink); }             /* the press name reads clearly */
+.tm { font-family: var(--body); font-size: .45em; vertical-align: super; opacity: .6; letter-spacing: 0; margin-left: 3px; }
+.product-mark { width: 92px; height: 92px; display: block; margin: 2px auto 16px; }
+.product-tagline { font-style: italic; color: #7d7b74; font-size: clamp(17px, 2.2vw, 21px); text-align: center; margin: 0 0 16px; }
+.coming { text-align: center; margin-top: 10px; }
+@media (max-width: 600px) {
+  .brand-word { font-size: 14px; }
+  .brand-leaf { font-size: 16px; }
+}
