@@ -1,122 +1,429 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Necropolis Publishing</title>
-<meta name="description" content="Necropolis Publishing is a small press for the written word. Makers of Lectern, a quiet desktop app for long-form writing. Books coming soon.">
-<meta property="og:title" content="Necropolis Publishing">
-<meta property="og:description" content="A small press for the written word. Makers of Lectern.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://necropolispublishing.com">
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<meta property="og:image" content="https://necropolispublishing.com/og-image.png">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://necropolispublishing.com/og-image.png">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Necropolis Publishing</title>
+  <meta name="description" content="Necropolis Publishing. Dark minds. Deep obsession. Relentless perfection. A fortress for those who write from the shadows, hidden in the hills of north Georgia.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Necropolis Publishing">
+  <meta property="og:description" content="Dark minds. Deep obsession. Relentless perfection.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://necropolispublishing.com">
+  <meta property="og:image" content="https://necropolispublishing.com/og-image.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Necropolis Publishing">
+  <meta name="twitter:description" content="Dark minds. Deep obsession. Relentless perfection.">
+  <meta name="twitter:image" content="https://necropolispublishing.com/og-image.png">
+  <meta name="theme-color" content="#8a1a22">
+
+  <!-- Favicons. Keep these files in the same folder as this page. -->
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Display face: our own Necropolis Titling (Cinzel derivative, OFL, self-hosted). Body: EB Garamond. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+  <script>document.documentElement.className = 'js';</script>
+
+  <style>
+    @font-face {
+      font-family: 'Necropolis Titling';
+      src: url('NecropolisTitling.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    :root {
+      --panel-top: #cfceca;
+      --panel-bottom: #c1c0bb;
+      --ink: #1c1b18;
+      --ink-strong: #131210;
+      --ink-soft: #423f39;
+      --crimson: #8a1a22;
+      --crimson-deep: #6d1219;
+      --crimson-mute: #a06166;
+      --rule: rgba(26, 24, 22, 0.42);
+      --wordmark-w: clamp(16rem, 34vw, 28rem);
+      --measure: 33rem;
+      --serif: 'EB Garamond', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+      --display: 'Necropolis Titling', 'Cinzel', 'Times New Roman', serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body { height: 100%; }
+
+    body {
+      min-height: 100vh;
+      background-color: #0f1010;
+      color: var(--ink);
+      font-family: var(--serif);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Fixed atmosphere behind everything. Using a fixed element rather than
+       background-attachment for reliable rendering across engines. */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-color: #14140f;
+      background-image: url('necropolis_no_text.png');
+      background-size: cover;
+      background-position: center right;
+      background-repeat: no-repeat;
+    }
+
+    /* Castle masthead shown only on narrow screens. */
+    .hero {
+      display: none;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 42vh;
+      min-height: 260px;
+      background-image: url('necropolis_no_text.png');
+      background-size: cover;
+      background-position: center;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15, 16, 16, 0.10) 40%, var(--panel-top) 100%);
+    }
+
+    .panel {
+      position: relative;
+      z-index: 1;
+      width: min(46%, 640px);
+      min-height: 100vh;
+      background: linear-gradient(180deg, var(--panel-top) 0%, var(--panel-bottom) 100%);
+      padding: clamp(3rem, 7vh, 6rem) clamp(1.6rem, 4.2vw, 3.6rem) 4rem;
+      box-shadow: 2px 0 0 rgba(138, 26, 34, 0.35), 26px 0 60px -22px rgba(0, 0, 0, 0.6);
+    }
+
+    .wrap {
+      max-width: var(--measure);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* Wordmark. Both lines fill the same width edge to edge via flex,
+       so PUBLISHING sits directly under NECROPOLIS end to end. */
+    .brand { width: var(--wordmark-w); margin: 0 auto; }
+
+    .brand-line {
+      display: flex;
+      justify-content: space-between;
+      line-height: 1;
+      font-family: var(--display);
+    }
+    .brand-line span { display: block; }
+
+    .brand-necropolis {
+      font-size: clamp(2.1rem, 4.6vw, 3rem);
+      font-weight: 600;
+      color: var(--ink-strong);
+    }
+    .brand-publishing {
+      margin-top: 0.5rem;
+      font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+      font-weight: 500;
+      color: var(--crimson);
+    }
+
+    /* Ornamental rule. One definition, reused, so both lines are identical. */
+    .rule {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      width: var(--wordmark-w);
+      margin: 1.15rem auto;
+    }
+    .rule-line { flex: 1; height: 1px; }
+    .rule-line.left { background: linear-gradient(to right, transparent, var(--rule)); }
+    .rule-line.right { background: linear-gradient(to left, transparent, var(--rule)); }
+    .fleur {
+      flex: none;
+      height: 1.05rem;
+      width: auto;
+      fill: var(--crimson);
+      display: block;
+    }
+
+    .tagline {
+      font-size: clamp(0.72rem, 1.4vw, 0.94rem);
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-strong);
+      margin: 0 auto;
+    }
+
+    /* Section headings, shared by The Legend and the three offers. */
+    .section {
+      margin-top: clamp(2.6rem, 6vh, 4.2rem);
+    }
+    .section-title {
+      position: relative;
+      font-family: var(--display);
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-strong);
+      font-size: clamp(1.25rem, 2.6vw, 1.7rem);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.1rem;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 2.4rem;
+      height: 2px;
+      background: var(--crimson);
+      opacity: 0.85;
+    }
+
+    /* The legend reads like a book: left aligned with a crimson drop cap.
+       first-letter is used instead of initial-letter, which does not render
+       reliably in this environment. */
+    .legend { text-align: left; }
+    .legend p {
+      font-size: clamp(1.02rem, 1.1vw, 1.14rem);
+      line-height: 1.72;
+      color: var(--ink);
+      margin: 0 0 1rem;
+      text-align: justify;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+    .legend p + p { text-indent: 1.4em; }
+    .legend p:first-of-type::first-letter {
+      float: left;
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 4.9em;
+      line-height: 0.68;
+      padding: 0.02em 0.1em 0 0;
+      color: var(--crimson);
+    }
+
+    /* Offers */
+    .offer { margin-top: clamp(2.2rem, 5vh, 3.4rem); }
+    .offer-title { font-size: clamp(1.05rem, 2.2vw, 1.4rem); }
+    .offer-copy {
+      font-size: clamp(1rem, 1vw, 1.1rem);
+      line-height: 1.62;
+      color: var(--ink);
+      margin: 0 auto 1.15rem;
+      max-width: 30rem;
+    }
+
+    .cta {
+      display: inline-block;
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .cta-live {
+      position: relative;
+      color: var(--crimson);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .cta-live::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: -3px;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .cta-live:hover, .cta-live:focus-visible { color: var(--crimson-deep); }
+    .cta-live:hover::after, .cta-live:focus-visible::after { transform: scaleX(1); }
+    .cta-live:focus-visible { outline: 2px solid var(--crimson); outline-offset: 4px; }
+    .cta-live .arrow { font-family: var(--serif); margin-left: 0.4em; }
+
+    .cta-dead {
+      color: var(--crimson-mute);
+      font-style: italic;
+      letter-spacing: 0.12em;
+      cursor: not-allowed;
+      user-select: none;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: clamp(3rem, 7vh, 5rem);
+      color: var(--ink-soft);
+    }
+    .footer .place {
+      font-style: italic;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .footer a {
+      color: var(--crimson);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+    .footer a:hover { border-color: var(--crimson); }
+    .footer .copy {
+      display: block;
+      margin-top: 0.9rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      opacity: 0.85;
+    }
+
+    /* Gentle reveal on scroll, progressive and motion safe. */
+    .js .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .js .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .js .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    @media (max-width: 900px) {
+      .bg { display: none; }
+      .hero { display: block; }
+      .panel {
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        background: linear-gradient(180deg, var(--panel-top) 0%, var(--panel-bottom) 100%);
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="bg"></div>
 
-<header>
-  <nav>
-    <a href="#top" class="brand" aria-label="Necropolis Publishing home">
-      <span class="brand-leaf" aria-hidden="true">&#x2767;</span>
-      <span class="brand-word">Necropolis Publishing</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#lectern">Lectern</a></li>
-      <li><a href="#bookstore">Bookstore</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-</header>
+  <div class="hero" aria-hidden="true"></div>
 
-<div class="hero" id="top">
-  <div class="hero-inner">
-    <h1 class="hero-title">Necropolis Publishing</h1>
-    <p class="hero-tagline">Where words are made, and kept.</p>
-    <div class="welcome-line" aria-hidden="true">
-      <span class="leaf">&#x2619;</span>
-      <span class="rule"></span>
-      <span class="leaf">&#x2767;</span>
+  <main class="panel">
+    <div class="wrap">
+
+      <!-- Wordmark, recreated from the reference. -->
+      <header class="reveal">
+        <div class="brand" aria-label="Necropolis Publishing">
+          <div class="brand-line brand-necropolis" aria-hidden="true">
+            <span>N</span><span>E</span><span>C</span><span>R</span><span>O</span><span>P</span><span>O</span><span>L</span><span>I</span><span>S</span>
+          </div>
+          <div class="brand-line brand-publishing" aria-hidden="true">
+            <span>P</span><span>U</span><span>B</span><span>L</span><span>I</span><span>S</span><span>H</span><span>I</span><span>N</span><span>G</span>
+          </div>
+        </div>
+
+        <div class="rule" aria-hidden="true">
+          <span class="rule-line left"></span>
+          <svg class="fleur" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="fleur-de-lis">
+            <path d="M50 8 C 44 26 40 42 50 58 C 60 42 56 26 50 8 Z"/>
+            <path d="M50 52 C 40 44 26 42 18 50 C 8 60 12 76 26 74 C 16 68 22 56 40 60 C 44 56 47 54 50 52 Z"/>
+            <path d="M50 52 C 60 44 74 42 82 50 C 92 60 88 76 74 74 C 84 68 78 56 60 60 C 56 56 53 54 50 52 Z"/>
+            <rect x="26" y="58" width="48" height="9" rx="4"/>
+            <path d="M36 67 L64 67 L57 104 C 57 112 43 112 43 104 Z"/>
+          </svg>
+          <span class="rule-line right"></span>
+        </div>
+
+        <p class="tagline">Dark minds. Deep obsession.<br>Relentless perfection.</p>
+
+        <div class="rule" aria-hidden="true">
+          <span class="rule-line left"></span>
+          <svg class="fleur" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="fleur-de-lis">
+            <path d="M50 8 C 44 26 40 42 50 58 C 60 42 56 26 50 8 Z"/>
+            <path d="M50 52 C 40 44 26 42 18 50 C 8 60 12 76 26 74 C 16 68 22 56 40 60 C 44 56 47 54 50 52 Z"/>
+            <path d="M50 52 C 60 44 74 42 82 50 C 92 60 88 76 74 74 C 84 68 78 56 60 60 C 56 56 53 54 50 52 Z"/>
+            <rect x="26" y="58" width="48" height="9" rx="4"/>
+            <path d="M36 67 L64 67 L57 104 C 57 112 43 112 43 104 Z"/>
+          </svg>
+          <span class="rule-line right"></span>
+        </div>
+      </header>
+
+      <!-- The Legend -->
+      <section class="section reveal">
+        <h2 class="section-title">The Legend</h2>
+        <div class="legend">
+          <p>Throughout history, writers have gathered in speakeasies and back room bars, places that came to be known as Haunts, where one could speak the unspeakable. But when ghostwriters gather, the unspeakable is spoken in a stranger faith: that everyone present already knows better than to repeat it. A ghostwriter, after all, is only as good as their silence, and politicians and pop stars alike shudder at the thought of one giving away the truths they were paid to bury.</p>
+          <p>In time, one Haunt of ghostwriters resolved to break the spell, to spill every secret they carried, disguised as fiction. That Haunt was known as Necropolis: the largest gathering of the most wretched minded ghostwriters the world has never seen.</p>
+          <p>Today, Necropolis Publishing, hidden in the hills of north Georgia, stands as a fortress for those who write from the shadows and stir the cauldron of a quieter, hidden society.</p>
+        </div>
+      </section>
+
+      <!-- Offers -->
+      <section class="section offer reveal">
+        <h2 class="section-title offer-title">Publishing</h2>
+        <p class="offer-copy">Books, essays, and the occasional confession. We bring dark fiction and long form work into the light, written by those who have made a craft of keeping secrets. From first draft to final imprint, every title carries the weight of something once whispered, now bound and set loose upon the page.</p>
+        <span class="cta cta-dead" aria-disabled="true">Coming Soon</span>
+      </section>
+
+      <section class="section offer reveal">
+        <h2 class="section-title offer-title">Production</h2>
+        <p class="offer-copy">Film, music, and audiobooks. We give our stories a voice and a face, adapting the written word for the screen, the score, and the spoken hour. What begins as ink on paper we carry into sound and shadow, so a tale can be felt as fully as it is read.</p>
+        <span class="cta cta-dead" aria-disabled="true">Coming Soon</span>
+      </section>
+
+      <section class="section offer reveal">
+        <h2 class="section-title offer-title">Development</h2>
+        <p class="offer-copy">Applications and appliances. From Lectern, our writing studio for the serious author, to the small electronics, form factors, and collectables that furnish a writer's world. We build the quiet tools of the trade, engineered for those who take the craft as seriously as we do.</p>
+        <a class="cta cta-live" href="https://www.lectern.necropolispublishing.com" target="_blank" rel="noopener">Enter Lectern<span class="arrow">&rarr;</span></a>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer reveal">
+        <div class="rule" aria-hidden="true">
+          <span class="rule-line left"></span>
+          <svg class="fleur" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="fleur-de-lis">
+            <path d="M50 8 C 44 26 40 42 50 58 C 60 42 56 26 50 8 Z"/>
+            <path d="M50 52 C 40 44 26 42 18 50 C 8 60 12 76 26 74 C 16 68 22 56 40 60 C 44 56 47 54 50 52 Z"/>
+            <path d="M50 52 C 60 44 74 42 82 50 C 92 60 88 76 74 74 C 84 68 78 56 60 60 C 56 56 53 54 50 52 Z"/>
+            <rect x="26" y="58" width="48" height="9" rx="4"/>
+            <path d="M36 67 L64 67 L57 104 C 57 112 43 112 43 104 Z"/>
+          </svg>
+          <span class="rule-line right"></span>
+        </div>
+        <p class="place">Hidden in the hills of north Georgia.</p>
+        <a href="mailto:contact@necropolispublishing.com">contact@necropolispublishing.com</a>
+        <span class="copy">&copy; 2026 Necropolis Publishing, LLC.</span>
+      </footer>
+
     </div>
-  </div>
-</div>
+  </main>
 
-<section>
-  <div class="intro">
-    <h2>A small press for the written word.</h2>
-    <p class="body">
-      We build quiet tools for writers and publish work worth keeping.
-      Everything we make favors focus over noise, and ownership over lock-in.
-    </p>
-  </div>
-</section>
-
-<div class="ornament" aria-hidden="true">
-  <span class="leaf">&#x2619;</span>
-  <span class="rule"></span>
-  <span class="leaf">&#x2767;</span>
-</div>
-
-<section id="lectern">
-  <div class="intro">
-    <p class="eyebrow">Featured</p>
-    <img class="product-mark" src="lectern-mark.png" alt="Lectern" draggable="false">
-    <h2 style="margin-bottom:4px">Lectern<span class="tm">&trade;</span></h2>
-    <p class="product-tagline">A quiet room for words.</p>
-    <p class="body">
-      Lectern is our long-form writing desktop app: a distraction-free room
-      for books, essays, and drafts. It keeps your manuscript in plain markdown,
-      on your own machine.
-    </p>
-    <div class="intro-card">
-      <ul class="bullets">
-        <li>Book Mode: your manuscript laid out as printed pages</li>
-        <li>Markdown-clean, with export to Word, PDF, and EPUB</li>
-        <li>A built-in Compendium for characters, places, and lore</li>
-        <li>Optional AI and Voice, using your own keys</li>
-        <li>Local-first. Your files stay yours.</li>
-      </ul>
-      <div class="btn-row">
-        <a class="btn primary" href="https://lectern.necropolispublishing.com">Visit Lectern</a>
-      </div>
-      <p class="note">
-        Available now for Linux. A free tier, plus a one-time Pro license.
-      </p>
-    </div>
-  </div>
-</section>
-
-<div class="ornament" aria-hidden="true">
-  <span class="leaf">&#x2619;</span>
-  <span class="rule"></span>
-  <span class="leaf">&#x2767;</span>
-</div>
-
-<section id="bookstore">
-  <div class="intro">
-    <p class="eyebrow">Bookstore</p>
-    <h2>Titles, coming soon.</h2>
-    <p class="body">
-      We are preparing our first books. When they are ready, you will find them here.
-    </p>
-    <p class="coming"><span class="pill">Opening soon</span></p>
-  </div>
-</section>
-
-<footer id="contact">
-  <ul class="footer-links">
-    <li><a href="https://lectern.necropolispublishing.com">Lectern</a></li>
-    <li><a href="https://github.com/NecropolisPublishing">GitHub</a></li>
-    <li><a href="https://buymeacoffee.com/necropolispublishing">Support Our Work</a></li>
-  </ul>
-  <p>&copy; 2026 Necropolis Publishing, LLC. All rights reserved.</p>
-  <p><a href="mailto:contact@necropolispublishing.com">contact@necropolispublishing.com</a></p>
-</footer>
-
+  <script>
+    (function () {
+      var items = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(function (el) { el.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      items.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
 </body>
 </html>
